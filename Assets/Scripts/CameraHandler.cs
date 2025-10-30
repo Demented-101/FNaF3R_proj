@@ -9,6 +9,7 @@ public class CameraHandler : MonoBehaviour
 {
     [SerializeField] private GameObject inactiveCamAnchor;
     [SerializeField] private GameObject[] camAnchors = new GameObject[10];
+    [SerializeField] private OfficeCamPositioner officeCamPositioner;
     [SerializeField] private GameObject camHUD;
     [SerializeField] private Volume camVolume;
     [SerializeField] private int startCam = 10;
@@ -31,16 +32,14 @@ public class CameraHandler : MonoBehaviour
         currentCam = startCam;
         SetCamerasActive(false);
     }
+    
     private void Update()
     {
+        MoveCamera(camActive? currentCam - 1 : -1);
+        
         if (Input.GetKeyDown("space"))
         {
             SetCamerasActive(!camActive); // toggle camera open
-        }
-
-        if (camActive)
-        {
-            MoveCamera(currentCam - 1);
         }
 
         if (Input.mouseScrollDelta.y != 0 && camActive)
@@ -67,6 +66,7 @@ public class CameraHandler : MonoBehaviour
     public void SetCamera(int cam)
     {
         if (cam < 1 || cam > 10) return; // cam doesn't exist
+        if (officeCamPositioner != null) officeCamPositioner.enabled = false;
 
         currentCam = cam;
         onCamChanged?.Invoke(cam);
@@ -78,6 +78,7 @@ public class CameraHandler : MonoBehaviour
     {
         MoveCamera(-1);
         UpdateCameraSettings(-1);
+        if (officeCamPositioner != null) officeCamPositioner.enabled = true;
     }
 
     private void MoveCamera(int target)
@@ -87,7 +88,10 @@ public class CameraHandler : MonoBehaviour
         if (target != -1) { targetTrans = camAnchors[target].transform; }
 
         // copy transform position and rotation to camera
-        camera.transform.position = targetTrans.position + new Vector3(0, UnityEngine.Random.Range(-0.002f, 0f), 0);
+        Vector3 targetPos = targetTrans.position;
+        if (camActive) { targetPos += new Vector3(0, UnityEngine.Random.Range(-0.002f, 0f), 0); }
+        
+        camera.transform.position = targetPos;
         camera.transform.rotation = targetTrans.rotation;
     }
 

@@ -66,7 +66,7 @@ MonoBehaviour:
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.98510885, y: 1, z: 0.9842037, w: 0.10475435}
+    m_Value: {x: 0.98510885, y: 1, z: 0.9842037, w: -0.21756637}
   gain:
     m_OverrideState: 0
     m_Value: {x: 1, y: 0.70469785, z: 0.9668621, w: 0.19339247}
@@ -88,13 +88,13 @@ MonoBehaviour:
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 4.79
+    m_Value: 4.31
   maximumVelocity:
     m_OverrideState: 1
-    m_Value: 114
+    m_Value: 71
   minimumVelocity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.07
   cameraMotionBlur:
     m_OverrideState: 0
     m_Value: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   mode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   meteringMode:
     m_OverrideState: 0
@@ -139,11 +139,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   fixedExposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -0.7287444
   compensation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -1.79
   limitMin:
     m_OverrideState: 0
     m_Value: -1
@@ -380,13 +380,13 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 6
   intensity:
     m_OverrideState: 1
-    m_Value: 0.598
+    m_Value: 0.557
   response:
-    m_OverrideState: 1
-    m_Value: 0.876
+    m_OverrideState: 0
+    m_Value: 0
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
