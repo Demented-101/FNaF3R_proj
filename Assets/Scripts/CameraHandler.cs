@@ -2,12 +2,15 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class CameraHandler : MonoBehaviour
 {
     [SerializeField] private GameObject inactiveCamAnchor;
     [SerializeField] private GameObject[] camAnchors = new GameObject[10];
     [SerializeField] private GameObject camHUD;
+    [SerializeField] private Volume camVolume;
     [SerializeField] private int startCam = 10;
     [SerializeField] private float defaultFOV = 60;
 
@@ -16,6 +19,9 @@ public class CameraHandler : MonoBehaviour
 
     public UnityEvent<int> onCamChanged;
     private Camera camComponent;
+    private float currentScroll = 1;
+    private const float scrollSpeed = 0.05f;
+    private float currentFOV = 60;
 
     private void Start()
     {
@@ -36,6 +42,13 @@ public class CameraHandler : MonoBehaviour
         {
             MoveCamera(currentCam - 1);
         }
+
+        if (Input.mouseScrollDelta.y != 0 && camActive)
+        {
+            currentScroll += Input.mouseScrollDelta.y * scrollSpeed;
+            currentScroll = Mathf.Clamp(currentScroll, 0.8f, 1.1f);
+            camComponent.fieldOfView = currentFOV * currentScroll;
+        }
     }
 
     public void SetCamerasActive(bool active)
@@ -45,6 +58,7 @@ public class CameraHandler : MonoBehaviour
         else { ReturnToDefault(); }
 
         Application.targetFrameRate = active ? 15 : 60;
+        camVolume.enabled = active;
 
         camHUD.SetActive(active);
         camComponent.fieldOfView = defaultFOV;
@@ -73,7 +87,7 @@ public class CameraHandler : MonoBehaviour
         if (target != -1) { targetTrans = camAnchors[target].transform; }
 
         // copy transform position and rotation to camera
-        camera.transform.position = targetTrans.position;
+        camera.transform.position = targetTrans.position + new Vector3(0, UnityEngine.Random.Range(-0.002f, 0f), 0);
         camera.transform.rotation = targetTrans.rotation;
     }
 
@@ -88,6 +102,8 @@ public class CameraHandler : MonoBehaviour
         CameraAnchor camAnchor = camAnchors[target].GetComponent<CameraAnchor>();
         if (camAnchor != null)
         {
+            currentScroll = 1;
+            currentFOV = camAnchor.FOV;
             camComponent.fieldOfView = camAnchor.FOV;
         }
         else
