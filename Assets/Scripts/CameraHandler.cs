@@ -31,6 +31,11 @@ public class CameraHandler : MonoBehaviour
         {
             SetCamerasActive(!camActive); // toggle camera open
         }
+
+        if (camActive)
+        {
+            MoveCamera(currentCam - 1);
+        }
     }
 
     public void SetCamerasActive(bool active)
@@ -38,6 +43,8 @@ public class CameraHandler : MonoBehaviour
         camActive = active;
         if (active) { MoveCamera(currentCam - 1); }
         else { ReturnToDefault(); }
+
+        Application.targetFrameRate = active ? 15 : 60;
 
         camHUD.SetActive(active);
         camComponent.fieldOfView = defaultFOV;
@@ -51,8 +58,6 @@ public class CameraHandler : MonoBehaviour
         onCamChanged?.Invoke(cam);
         MoveCamera(cam - 1);
         UpdateCameraSettings(cam - 1);
-
-        Debug.Log("hauii");
     }
 
     private void ReturnToDefault()
