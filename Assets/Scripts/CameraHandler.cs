@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraHandler : MonoBehaviour
 {
@@ -12,17 +13,16 @@ public class CameraHandler : MonoBehaviour
     [SerializeField] private OfficeCamPositioner officeCamPositioner;
     [SerializeField] private GameObject camHUD;
     [SerializeField] private Volume camVolume;
-    [SerializeField] private int startCam = 10;
-    [SerializeField] private float defaultFOV = 60;
+    [SerializeField] private int startCam = 1;
+    [SerializeField] private float defaultFOV = 65;
+    [SerializeField] private int defaultFPS = 60;
 
     public bool camActive { get; private set; } = false;
     public int currentCam { get; private set; } = 1;
 
     public UnityEvent<int> onCamChanged;
     private Camera camComponent;
-    private float currentScroll = 1;
-    private const float scrollSpeed = 0.05f;
-    private float currentFOV = 60;
+    private CCTVCamera CCTVComp;
 
     private void Start()
     {
@@ -36,17 +36,11 @@ public class CameraHandler : MonoBehaviour
     private void Update()
     {
         MoveCamera(camActive? currentCam - 1 : -1);
-        
+        camComponent.fieldOfView = camActive ? CCTVComp.GetFOV() : defaultFOV;
+
         if (Input.GetKeyDown("space"))
         {
             SetCamerasActive(!camActive); // toggle camera open
-        }
-
-        if (Input.mouseScrollDelta.y != 0 && camActive)
-        {
-            currentScroll += Input.mouseScrollDelta.y * scrollSpeed;
-            currentScroll = Mathf.Clamp(currentScroll, 0.8f, 1.1f);
-            camComponent.fieldOfView = currentFOV * currentScroll;
         }
     }
 
@@ -55,8 +49,6 @@ public class CameraHandler : MonoBehaviour
         camActive = active;
         if (active) { MoveCamera(currentCam - 1); }
         else { ReturnToDefault(); }
-
-        Application.targetFrameRate = active ? 15 : 60;
         camVolume.enabled = active;
 
         camHUD.SetActive(active);
@@ -71,13 +63,16 @@ public class CameraHandler : MonoBehaviour
         currentCam = cam;
         onCamChanged?.Invoke(cam);
         MoveCamera(cam - 1);
-        UpdateCameraSettings(cam - 1);
+
+        CCTVComp = camAnchors[cam - 1].GetComponent<CCTVCamera>();
+        Application.targetFrameRate = CCTVComp.GetFPS();
     }
 
     private void ReturnToDefault()
     {
         MoveCamera(-1);
-        UpdateCameraSettings(-1);
+        Application.targetFrameRate = defaultFPS;
+        Application.targetFrameRate = 60;
         if (officeCamPositioner != null) officeCamPositioner.enabled = true;
     }
 
@@ -93,26 +88,5 @@ public class CameraHandler : MonoBehaviour
         
         camera.transform.position = targetPos;
         camera.transform.rotation = targetTrans.rotation;
-    }
-
-    private void UpdateCameraSettings(int target)
-    {
-        if (target == -1)
-        {
-            camComponent.fieldOfView = defaultFOV;
-            return;
-        }
-
-        CameraAnchor camAnchor = camAnchors[target].GetComponent<CameraAnchor>();
-        if (camAnchor != null)
-        {
-            currentScroll = 1;
-            currentFOV = camAnchor.FOV;
-            camComponent.fieldOfView = camAnchor.FOV;
-        }
-        else
-        {
-            UpdateCameraSettings(-1);
-        }
     }
 }
