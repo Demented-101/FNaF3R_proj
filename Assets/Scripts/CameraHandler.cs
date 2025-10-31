@@ -30,6 +30,7 @@ public class CameraHandler : MonoBehaviour
         camComponent = camera.GetComponent<Camera>();
 
         currentCam = startCam;
+        CCTVComp = camAnchors[0].GetComponent<CCTVCamera>();
         SetCamerasActive(false);
     }
     
