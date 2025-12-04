@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CCTVCamera : MonoBehaviour
 {
-    [SerializeField] private int Fps = 15;
+    [SerializeField] private ElectronicComponent electronicComponent;
 
     [SerializeField] private float minFOV = 50;
     [SerializeField] private float maxFOV = 75;
@@ -20,9 +20,12 @@ public class CCTVCamera : MonoBehaviour
     private float panDelta;
     private float panTarget;
 
+    public bool doStatic;
+    public string errorMessage;
 
     private void Start()
     {
+        electronicComponent.statusChanged += UpdateStatus;
         currentZoom = Mathf.InverseLerp(minFOV, maxFOV, startingZoom);
     }
 
@@ -56,13 +59,37 @@ public class CCTVCamera : MonoBehaviour
         }
     }
 
+    private void UpdateStatus()
+    {
+        switch (electronicComponent.status)
+        {
+            case ElectronicComponent.ComponentStatus.OK:
+                doStatic = false;
+                errorMessage = "";
+                break;
+            case ElectronicComponent.ComponentStatus.Warning:
+                if (Random.Range(0, 100) > 70)
+                {
+                    doStatic = true;
+                    errorMessage = "DISCONNECTED";
+                }
+                break;
+            case ElectronicComponent.ComponentStatus.Error:
+                if (Random.Range(0, 100) > 20)
+                {
+                    doStatic = true;
+                    errorMessage = "DISCONNECTED";
+                }
+                break;
+            case ElectronicComponent.ComponentStatus.Resetting:
+                doStatic = true;
+                errorMessage = "Reconnecting.";
+                break;
+        }
+    }
+
     public float GetFOV()
     {
         return Mathf.Lerp(minFOV, maxFOV, currentZoom);
-    }
-
-    public int GetFPS()
-    {
-        return Fps;
     }
 }

@@ -10,6 +10,8 @@ public class CameraHandler : MonoBehaviour
 {
     [SerializeField] private GameObject inactiveCamAnchor;
     [SerializeField] private GameObject[] camAnchors = new GameObject[10];
+    [SerializeField] private GameObject staticLayer;
+    [SerializeField] private TMPro.TMP_Text camErrorText;
     [SerializeField] private OfficeCamPositioner officeCamPositioner;
     [SerializeField] private GameObject camHUD;
     [SerializeField] private Volume camVolume;
@@ -38,6 +40,10 @@ public class CameraHandler : MonoBehaviour
     {
         MoveCamera(camActive? currentCam - 1 : -1);
         camComponent.fieldOfView = camActive ? CCTVComp.GetFOV() : defaultFOV;
+        if (camActive)
+        {
+            UpdateStatic();
+        }
 
         if (Input.GetKeyDown("space"))
         {
@@ -66,15 +72,14 @@ public class CameraHandler : MonoBehaviour
         MoveCamera(cam - 1);
 
         CCTVComp = camAnchors[cam - 1].GetComponent<CCTVCamera>();
-        Application.targetFrameRate = CCTVComp.GetFPS();
     }
 
     private void ReturnToDefault()
     {
         MoveCamera(-1);
-        Application.targetFrameRate = defaultFPS;
-        Application.targetFrameRate = 60;
         if (officeCamPositioner != null) officeCamPositioner.enabled = true;
+        staticLayer.SetActive(false);
+        camErrorText.text = "";
     }
 
     private void MoveCamera(int target)
@@ -89,5 +94,11 @@ public class CameraHandler : MonoBehaviour
         
         camera.transform.position = targetPos;
         camera.transform.rotation = targetTrans.rotation;
+    }
+
+    private void UpdateStatic()
+    {
+        staticLayer.SetActive(CCTVComp.doStatic);
+        camErrorText.text = CCTVComp.errorMessage;
     }
 }

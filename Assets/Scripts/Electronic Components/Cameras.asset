@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Cameras
   m_EditorClassIdentifier: 
   componentName: Camera Sys
-  status: 0
+  status: 3
