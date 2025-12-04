@@ -14,8 +14,8 @@ public class EComponentHandler : MonoBehaviour
     private const float resetTimerMax = 15;
 
     public float damageTimer;
-    private const float damageTimerMax = 50;
-    private const float damageTimerMin = 30;
+    private const float damageTimerMax = 75;
+    private const float damageTimerMin = 50;
 
     private void Start()
     {
@@ -24,6 +24,7 @@ public class EComponentHandler : MonoBehaviour
         resetButton.onClick.AddListener(Pressed);
 
         damageTimer = Random.Range(damageTimerMin, damageTimerMax) + 10;
+        CompletedReset();
         UpdateStatus();
     }
 
@@ -33,7 +34,7 @@ public class EComponentHandler : MonoBehaviour
         buttonText.color = component.GetStatusColor();
     }
 
-    private void Update()
+    public void Update()
     {
         if (resetTimer > 0)
         {

@@ -405,7 +405,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5284165668590614087}
   - component: {fileID: 7738884420606421005}
-  - component: {fileID: 4678145090925957114}
   m_Layer: 5
   m_Name: ElectronicComponent
   m_TagString: Untagged
@@ -460,19 +459,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4678145090925957114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7185575634983507631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ae2e4de11dc84499effc00010db863, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  component: {fileID: 0}
-  nameText: {fileID: 2882417609007850334}
-  buttonText: {fileID: 2493799828202084468}
-  resetButton: {fileID: 4779331808209393135}
