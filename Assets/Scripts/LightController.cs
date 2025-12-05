@@ -28,21 +28,19 @@ public class LightController : MonoBehaviour
                 break;
 
             case ElectronicComponent.ComponentStatus.Warning:
-                if (Random.Range(0,3) == 1)
+                if (Random.Range(0,100) < 20)
                 {
-                    lightComponent.intensity = lightIntensity/2;
-                    lightComponent.range = lightRange/2;
-                }
-                else
-                {
-                    lightComponent.intensity = lightIntensity;
-                    lightComponent.range = lightRange;
+                    lightComponent.intensity = 0;
+                    lightComponent.range = 0;
                 }
                 break;
 
             case ElectronicComponent.ComponentStatus.Error:
-                lightComponent.intensity = 0;
-                lightComponent.range = 0;
+                if (Random.Range(0,100) < 75)
+                {
+                    lightComponent.intensity = 0;
+                    lightComponent.range = 0;
+                }
                 break;
 
             case ElectronicComponent.ComponentStatus.Resetting:

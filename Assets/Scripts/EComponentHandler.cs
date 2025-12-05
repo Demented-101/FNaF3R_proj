@@ -9,22 +9,26 @@ public class EComponentHandler : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text buttonText;
     [SerializeField] private Button resetButton;
+    [SerializeField] private Button powerCycleButton;
 
     public float resetTimer;
-    private const float resetTimerMax = 15;
+    private const float resetTimerMax = 5;
+    private const float powerCycleTimerMax = 10;
 
     public float damageTimer;
-    private const float damageTimerMax = 75;
-    private const float damageTimerMin = 50;
+    [SerializeField] private float damageTimerMax = 75;
+    [SerializeField]private float damageTimerMin = 50;
 
     private void Start()
     {
         nameText.text = component.componentName;
         component.statusChanged += UpdateStatus;
-        resetButton.onClick.AddListener(Pressed);
+
+        resetButton.onClick.AddListener(ResetPressed);
+        powerCycleButton.onClick.AddListener(PowerCyclePressed);
 
         damageTimer = Random.Range(damageTimerMin, damageTimerMax) + 10;
-        CompletedReset();
+        component.GameStart();
         UpdateStatus();
     }
 
@@ -52,11 +56,8 @@ public class EComponentHandler : MonoBehaviour
         }
     }
 
-    private void Pressed()
-    {
-        component.StartReset();
-        resetTimer = resetTimerMax;
-    }
+    private void ResetPressed() { component.StartReset(); resetTimer = resetTimerMax; }
+    private void PowerCyclePressed() { component.StartReset(); resetTimer = powerCycleTimerMax; }
 
     private void CompletedReset()
     {
