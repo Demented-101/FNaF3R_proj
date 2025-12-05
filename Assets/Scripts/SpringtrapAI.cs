@@ -1,47 +1,71 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SpringtrapAI : MonoBehaviour
 {
     public int currentRoom { get; private set; } = 0;
-    public float aggression { get; private set; } = 0;
     public enum AttackMode { Direct, Indirect, Disoriented, Rage}
+    public enum AttackDirection { NotAttacking, LeftDoor, RightDoor, VentA, VentB }
     public AttackMode attackMode { get; private set; } = AttackMode.Direct;
+    public AttackDirection attackDirection { get; private set; } = AttackDirection.NotAttacking;
 
     private float moveTime = 5f;
+    private float modeTime = 180f;
     private int poi;
 
-    private float[] targetWeights = new float[9];
-    private int[][] roomConnections = new int[9][];
+    private float[] targetWeights = new float[12];
+    private int[][] roomConnections = new int[12][];
+
 
     private void Start()
     {
         // room traversal
-        roomConnections[0] = new int[] { 1 }; // office
-        roomConnections[1] = new int[] { 0, 2, 3 }; // prize corner
-        roomConnections[2] = new int[] { 1, 3 }; // arcade
-        roomConnections[3] = new int[] { 1, 2, 5 }; // MCM
-        roomConnections[4] = new int[] { 5 }; // show stage
-        roomConnections[5] = new int[] { 3, 4, 6 }; // pirate cove
-        roomConnections[6] = new int[] { 4, 7 }; // attack 1
-        roomConnections[7] = new int[] { 4, 8 }; // attack 2
-        roomConnections[8] = new int[] { 0 }; // killed player
+        roomConnections[0] = new int[] { 1 }; // cam 10 -> cam 9
+        roomConnections[1] = new int[] { 0, 2 }; // cam 9 -> cam 10 & 8
+        roomConnections[2] = new int[] { 1, 3, 5 }; // cam 8 -> cam 9, 7 & 5
+        roomConnections[3] = new int[] { 2, 4 }; // cam 7 -> 8 & 6
+        roomConnections[4] = new int[] { 4, 5 }; // cam 6 -> 7 & 5
+        roomConnections[5] = new int[] { 2, 4, 8 }; // cam 5 -> 8, 6 & 2
+        roomConnections[6] = new int[] { 7, 8 }; // cam 4 -> 2 & 3
+        roomConnections[7] = new int[] { 6, 8 }; // cam 3 -> 2 & 4
+        roomConnections[8] = new int[] { 5, 7, 6, 9 }; // cam 2 -> 5, 4, 3, & attack start
+
+        roomConnections[9] = new int[] { 8, 10 }; // attack stage 1
+        roomConnections[10] = new int[] { 8, 11 }; // attack stage 2
+
+        roomConnections[11] = new int[] { 0 }; // killed player
     }
 
     private void Update()
     {
         moveTime -= Time.deltaTime * (attackMode == AttackMode.Rage ? 2 : 1);
-        
+        modeTime -= Time.deltaTime * Random.Range(0.9f, 1.1f);
+
         // update target weights
-        for (int i = 0; i < 6; i++) targetWeights[i] -= Time.deltaTime;
-
-        aggression += Time.deltaTime;
-        targetWeights[8] = aggression * 0.1f;
-
-        if (currentRoom == 8)
+        for (int i = 0; i < 6; i++)
         {
-            aggression = 0;
+            if (i == poi) { targetWeights[i] = 20; }
+            targetWeights[i] -= Time.deltaTime;
         }
+
+        if (modeTime < 0)
+        {
+            modeTime = 180f;
+            ChangeAttackMode(Random.Range(0, 2) == 0 ? AttackMode.Direct : AttackMode.Indirect);
+        }
+
+        if (moveTime < 0)
+        {
+            moveTime = 2;
+            Move();
+        }
+    }
+
+    public void pingAudioLure(int camera) // cam 10 should be passed in as 10!!
+    {
+        camera = 10 - camera; // flip cam int to cam in array
+        targetWeights[camera] = Random.Range(25,35);
     }
 
     private void ChangeAttackMode(AttackMode newAttack)
@@ -51,20 +75,26 @@ public class SpringtrapAI : MonoBehaviour
         switch (attackMode)
         {
             case AttackMode.Direct:
-                poi = 8;
+                int pickedDoor = Random.Range(0, 2);
+                poi = 11;
+                attackDirection = pickedDoor == 0 ? AttackDirection.LeftDoor : AttackDirection.RightDoor;
                 break;
 
-            case AttackMode.Indirect: 
-                poi = Random.Range(0,2) == 0 ? 2 : 4;
+            case AttackMode.Indirect:
+                int pickedVent = Random.Range(0, 2);
+                poi = pickedVent == 0 ? 3 : 6;
+                attackDirection = pickedVent == 0 ? AttackDirection.VentA : AttackDirection.VentB;
                 break;
 
             case AttackMode.Disoriented:
                 poi = -1;
+                attackDirection = AttackDirection.NotAttacking;
                 break;
 
             case AttackMode.Rage:
-                poi = 8;
-                if (currentRoom < 5) { currentRoom = 5; } // skip directly to pirate cove
+                poi = 11;
+                attackDirection = AttackDirection.LeftDoor;
+                if (currentRoom < 8) { currentRoom = 8; } // skip directly to pirate cove
                 break;
         }
     }
@@ -72,7 +102,18 @@ public class SpringtrapAI : MonoBehaviour
     private void Move()
     {
         currentRoom = GetNextRoom();
-        Debug.Log("current room : " + currentRoom + "  aggression : " + aggression);
+        switch (attackMode)
+        {
+            case AttackMode.Direct: case AttackMode.Indirect:
+                moveTime = 2; // TODO - make proper move times
+                break;
+            case AttackMode.Rage:
+                moveTime = 1;
+                break;
+            case AttackMode.Disoriented:
+                moveTime = Random.Range(10, 20);
+                break;
+        }
     }
 
     private int GetNextRoom()
@@ -81,24 +122,23 @@ public class SpringtrapAI : MonoBehaviour
         int nextRoom = -1;
         int smallestDist = 100;
 
+        // return random if disoriented
+        if (attackMode == AttackMode.Disoriented) { return roomConnections[currentRoom][Random.Range(0, roomConnections[currentRoom].Length)]; }
+
         foreach (int connection in roomConnections[currentRoom])
         {
+            // get distance between next room and target
             int thisDist = Mathf.Abs(target - connection);
 
-            if(thisDist < 1f) { continue; }
-
-            if (thisDist < smallestDist) 
-            { 
-                nextRoom = connection; smallestDist = thisDist; 
-            }
-
+            if (thisDist < smallestDist) { nextRoom = connection; smallestDist = thisDist; } // closer
             else if (thisDist == smallestDist)
             {
+                // if same dist, pick random
                 if (Random.Range(0, 2) == 0) { nextRoom = connection; smallestDist = thisDist; }
             }
         }
 
-        if (nextRoom == -1 || attackMode == AttackMode.Disoriented) // return random room
+        if (nextRoom == -1) // return random room
         {
             return roomConnections[currentRoom][Random.Range(0, roomConnections[currentRoom].Length) ];
         }
@@ -116,7 +156,7 @@ public class SpringtrapAI : MonoBehaviour
         {
             if (i == currentRoom) { continue; } // skip current room
 
-            float trueWeight = targetWeights[i] - Mathf.Abs(currentRoom - i);
+            float trueWeight = targetWeights[i] - Mathf.Abs(currentRoom - i); // room weight - distance
             if(trueWeight >= highestWeight)
             {
                 highestWeight = trueWeight;
