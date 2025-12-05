@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElectronicComponent : ScriptableObject
 {
     public Action statusChanged;
+    public Action<float> damageComponent;
     
     [SerializeField] public string componentName;
     public enum ComponentStatus { OK, Warning, Error, Resetting }

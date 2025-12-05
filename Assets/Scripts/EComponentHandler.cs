@@ -23,6 +23,7 @@ public class EComponentHandler : MonoBehaviour
     {
         nameText.text = component.componentName;
         component.statusChanged += UpdateStatus;
+        component.damageComponent += (float amount) => { damageTimer -= amount; };
 
         resetButton.onClick.AddListener(ResetPressed);
         powerCycleButton.onClick.AddListener(PowerCyclePressed);

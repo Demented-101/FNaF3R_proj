@@ -8,6 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CameraHandler : MonoBehaviour
 {
+    [SerializeField] private ElectronicComponent EComponent;
     [SerializeField] private GameObject inactiveCamAnchor;
     [SerializeField] private GameObject[] camAnchors = new GameObject[10];
     [SerializeField] private GameObject staticLayer;
@@ -43,6 +44,7 @@ public class CameraHandler : MonoBehaviour
         if (camActive)
         {
             UpdateStatic();
+            EComponent.damageComponent.Invoke(Time.deltaTime * 0.333f);
         }
 
         if (Input.GetKeyDown("space"))
@@ -54,7 +56,7 @@ public class CameraHandler : MonoBehaviour
     public void SetCamerasActive(bool active)
     {
         camActive = active;
-        if (active) { MoveCamera(currentCam - 1); }
+        if (active) { MoveCamera(currentCam - 1);}
         else { ReturnToDefault(); }
         camVolume.enabled = active;
 
