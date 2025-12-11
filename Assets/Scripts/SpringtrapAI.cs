@@ -1,10 +1,11 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 public class SpringtrapAI : MonoBehaviour
 {
-    public UnityEngine.Event VentPing;
+    public UnityEvent VentPing;
 
     public int currentRoom { get; private set; } = 0;
     public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking}
@@ -142,12 +143,12 @@ public class SpringtrapAI : MonoBehaviour
         {
             case AttackMode.Direct: case AttackMode.Indirect:
                 currentRoom = GetNextRoom();
-                moveTime = 2; // TODO - make proper move times
+                moveTime = Random.Range(10f,40f);
                 break;
 
             case AttackMode.Rage:
                 currentRoom = GetNextRoom();
-                moveTime = 1;
+                moveTime = Random.Range(10f, 20f);
                 break;
 
             case AttackMode.Disoriented:
@@ -157,7 +158,7 @@ public class SpringtrapAI : MonoBehaviour
 
             case AttackMode.Attacking:
                 attackProgress++;
-                if(attackDirection == AttackDirection.VentA || attackDirection == AttackDirection.VentB) { VentPing.Use(); }
+                if(attackDirection == AttackDirection.VentA || attackDirection == AttackDirection.VentB) { VentPing.Invoke(); }
                 if (attackProgress == 3)
                 {
                     Debug.Log("PLAYER KILLED");
