@@ -7,6 +7,8 @@ public class AudioLure : MonoBehaviour
     [SerializeField] private ElectronicComponent component;
     [SerializeField] private Button playButton;
     [SerializeField] private TMPro.TMP_Text responceLabel;
+    [SerializeField] private SpringtrapAI springtrapTarget;
+    [SerializeField] private CameraHandler cameraHandler;
 
     private float playTime;
 
@@ -39,24 +41,33 @@ public class AudioLure : MonoBehaviour
         if(playTime > 0) { return; }
 
         component.damageComponent.Invoke(15);
+        bool hasPlayed;
 
         if (component.status == ElectronicComponent.ComponentStatus.OK)
         {
+            hasPlayed = true;
             playTime = 3.5f;
             responceLabel.text = "Playing...";
             responceLabel.color = Color.gray;
         }
         else if (component.status == ElectronicComponent.ComponentStatus.Warning && Random.Range(0,100) < 70)
         {
+            hasPlayed = true;
             playTime = 5f;
             responceLabel.text = "Playing...";
             responceLabel.color = Color.gray;
         }
         else
         {
+            hasPlayed = false;
             playTime = 5f;
             responceLabel.text = "ERROR";
             responceLabel.color = Color.red;
+        }
+
+        if (hasPlayed)
+        {
+            springtrapTarget.PingAudioLure(cameraHandler.currentCam);
         }
     }
 
