@@ -4,6 +4,7 @@ using UnityEngine;
 public class CCTVCamera : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent electronicComponent;
+    [SerializeField] public RoomNode roomNode;
 
     [SerializeField] private float minFOV = 50;
     [SerializeField] private float maxFOV = 75;

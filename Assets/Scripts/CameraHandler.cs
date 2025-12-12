@@ -41,7 +41,8 @@ public class CameraHandler : MonoBehaviour
     {
         MoveCamera(camActive? currentCam - 1 : -1);
         camComponent.fieldOfView = camActive ? CCTVComp.GetFOV() : defaultFOV;
-        if (camActive)
+
+        if (camActive) // if using CCTV camera
         {
             UpdateStatic();
             EComponent.damageComponent.Invoke(Time.deltaTime * 0.333f);
@@ -53,29 +54,37 @@ public class CameraHandler : MonoBehaviour
         }
     }
 
+    // space pressed, move to cams on active, or default in office on false
     public void SetCamerasActive(bool active)
     {
         camActive = active;
-        if (active) { MoveCamera(currentCam - 1);}
-        else { ReturnToDefault(); }
+        if (active) { MoveCamera(currentCam - 1); if (CCTVComp != null) CCTVComp.roomNode.isWatched = true; }
+        else { ReturnToDefault(); if (CCTVComp != null) CCTVComp.roomNode.isWatched = false; }
         camVolume.enabled = active;
 
         camHUD.SetActive(active);
         camComponent.fieldOfView = defaultFOV;
     }
 
+    // change the current CCTV camera
     public void SetCamera(int cam)
     {
         if (cam < 1 || cam > 10) return; // cam doesn't exist
         if (officeCamPositioner != null) officeCamPositioner.enabled = false;
 
+
         currentCam = cam;
         onCamChanged?.Invoke(cam);
         MoveCamera(cam - 1);
 
+        CCTVCamera oldCCTVComp = CCTVComp;
         CCTVComp = camAnchors[cam - 1].GetComponent<CCTVCamera>();
+
+        if (oldCCTVComp != null) { oldCCTVComp.roomNode.isWatched = false; }
+        CCTVComp.roomNode.isWatched = true;
     }
 
+    // return to office camera
     private void ReturnToDefault()
     {
         MoveCamera(-1);
@@ -84,6 +93,7 @@ public class CameraHandler : MonoBehaviour
         camErrorText.text = "";
     }
 
+    // update cameras position for both office and CCTV cam
     private void MoveCamera(int target)
     {
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -98,9 +108,15 @@ public class CameraHandler : MonoBehaviour
         camera.transform.rotation = targetTrans.rotation;
     }
 
+    // update camera static
     private void UpdateStatic()
     {
         staticLayer.SetActive(CCTVComp.doStatic);
         camErrorText.text = CCTVComp.errorMessage;
+    }
+
+    public void PingAudioLure()
+    {
+        CCTVComp.roomNode.targetWeight = UnityEngine.Random.Range(20, 30);
     }
 }

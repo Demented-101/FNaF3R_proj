@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72efc0a2020eb744aaebe7c592bdaa8, type: 3}
+  m_Name: Prize Hall
+  m_EditorClassIdentifier: 
+  roomName: Prize Hall
+  roomIndex: 2
+  connections:
+  - {fileID: 11400000, guid: 1aeaa8420ed8e8241a5232ad87d6ef4c, type: 2}
+  - {fileID: 11400000, guid: 89cfb82317a26ea419d01450c3e3b80a, type: 2}
+  - {fileID: 11400000, guid: 98c37c73cb1e8404e8668acc311b43fd, type: 2}
+  targetWeight: 0
+  isWatched: 0

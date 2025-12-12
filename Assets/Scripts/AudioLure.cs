@@ -67,7 +67,7 @@ public class AudioLure : MonoBehaviour
 
         if (hasPlayed)
         {
-            springtrapTarget.PingAudioLure(cameraHandler.currentCam);
+            cameraHandler.PingAudioLure();
         }
     }
 
