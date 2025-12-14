@@ -1,13 +1,10 @@
-using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
-using static UnityEngine.GraphicsBuffer;
 
 public class SpringtrapAI : MonoBehaviour
 {
-    public UnityEvent VentPing;
+    public UnityEvent Moved;
+    public UnityEvent VentMotion;
 
     public RoomNode currentRoom { get; private set; }
     public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking}
@@ -118,7 +115,7 @@ public class SpringtrapAI : MonoBehaviour
         {
             case AttackMode.Direct: case AttackMode.Indirect:
                 currentRoom = GetNextRoom();
-                moveTime = 5; //Random.Range(10f, 15f);
+                moveTime = 3;// Random.Range(10f, 15f);
                 break;
 
             case AttackMode.Rage:
@@ -135,7 +132,7 @@ public class SpringtrapAI : MonoBehaviour
                 attackProgress++;
                 moveTime = Random.Range(2f, 10f);
 
-                if(attackDirection == AttackDirection.VentA || attackDirection == AttackDirection.VentB) { VentPing.Invoke(); }
+                if(attackDirection == AttackDirection.VentA || attackDirection == AttackDirection.VentB) { VentMotion.Invoke(); }
                 if (attackProgress == 3)
                 {
                     Debug.Log("PLAYER KILLED");
@@ -144,9 +141,11 @@ public class SpringtrapAI : MonoBehaviour
                 }
 
                 Debug.Log("Attacking! Attack progress: " + attackProgress + "   Time till next attack progress: " + moveTime);
+                Moved.Invoke();
                 return;
         }
-
+        currentRoom = rooms[0];
+        Moved.Invoke();
         Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
     }
 
