@@ -18,7 +18,6 @@ public class CameraHandler : MonoBehaviour
     [SerializeField] private Volume camVolume;
     [SerializeField] private int startCam = 1;
     [SerializeField] private float defaultFOV = 65;
-    [SerializeField] private int defaultFPS = 60;
 
     public bool camActive { get; private set; } = false;
     public int currentCam { get; private set; } = 1;

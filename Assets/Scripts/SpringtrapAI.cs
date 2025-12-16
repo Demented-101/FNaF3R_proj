@@ -6,6 +6,9 @@ public class SpringtrapAI : MonoBehaviour
     public UnityEvent Moved;
     public UnityEvent VentMotion;
 
+    public int checkroomdebug;
+    public bool lockposdebug;
+
     public RoomNode currentRoom { get; private set; }
     public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking}
     public enum AttackDirection { NotAttacking, LeftDoor, RightDoor, VentA, VentB }
@@ -19,7 +22,8 @@ public class SpringtrapAI : MonoBehaviour
 
     [SerializeField] private RoomNode[] rooms;
     [SerializeField] private RoomNode startRoom;
-    [SerializeField] private RoomNode officeRoom;
+    [SerializeField] private RoomNode attackLeftRoom;
+    [SerializeField] private RoomNode attackRightRoom;
     [SerializeField] private RoomNode VentAEnterance;
     [SerializeField] private RoomNode VentBEnterance;
 
@@ -77,7 +81,7 @@ public class SpringtrapAI : MonoBehaviour
         {
             case AttackMode.Direct:
                 int pickedDoor = Random.Range(0, 2);
-                poi = officeRoom;
+                poi = pickedDoor == 0 ? attackLeftRoom : attackRightRoom;
                 attackDirection = pickedDoor == 0 ? AttackDirection.LeftDoor : AttackDirection.RightDoor;
                 break;
 
@@ -93,7 +97,7 @@ public class SpringtrapAI : MonoBehaviour
                 break;
 
             case AttackMode.Rage:
-                poi = officeRoom;
+                poi = attackLeftRoom;
                 attackDirection = AttackDirection.LeftDoor;
                 break;
 
@@ -105,6 +109,8 @@ public class SpringtrapAI : MonoBehaviour
 
     private void Move()
     {
+        if (lockposdebug) { return; }
+
         // successfull started attack
         if (currentRoom == poi)
         {
@@ -144,7 +150,7 @@ public class SpringtrapAI : MonoBehaviour
                 Moved.Invoke();
                 return;
         }
-        currentRoom = rooms[0];
+        currentRoom = rooms[checkroomdebug];
         Moved.Invoke();
         Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
     }
