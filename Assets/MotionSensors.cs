@@ -4,6 +4,7 @@ using TMPro;
 public class MotionSensors : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent component;
+    [SerializeField] private SpringtrapAI springtrap;
     [SerializeField] private TMP_Text defaultText;
     [SerializeField] private TMP_Text warningTitle;
     [SerializeField] private TMP_Text warningLabel;
@@ -11,6 +12,22 @@ public class MotionSensors : MonoBehaviour
     public bool sensorActive;
     private float sensorTime;
     private float dotTimer;
+
+    private void Start()
+    {
+        springtrap.Moved.AddListener(Pinged);
+    }
+
+    private void Pinged()
+    {
+        if (springtrap.attackMode != SpringtrapAI.AttackMode.Attacking)
+        {
+            sensorActive = false;
+            return;
+        }
+
+        sensorActive = springtrap.attackDirection == SpringtrapAI.AttackDirection.VentA || springtrap.attackDirection == SpringtrapAI.AttackDirection.VentB;
+    }
 
     void Update()
     {
@@ -55,12 +72,14 @@ public class MotionSensors : MonoBehaviour
                     warningLabel.text = "Motion Sensor Triggered.";
                 }
                 break;
+            
             case ElectronicComponent.ComponentStatus.Error:
                 defaultText.text = new string[] { "i|t|s|m|e|", "I|T|S| |M|E", "|It's Me" }[Mathf.FloorToInt(dotTimer)];
 
                 warningTitle.text = "ALERT";
                 warningLabel.text = "Motion Sensor Lost Connection.";
                 break;
+            
             case ElectronicComponent.ComponentStatus.Resetting:
                 defaultText.text = "";
 

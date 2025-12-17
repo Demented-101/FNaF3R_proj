@@ -786,7 +786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3308375293241488577, guid: 8d81fc8e04513124b9439b1d0cfe6c1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.776
+      value: 11.972
       objectReference: {fileID: 0}
     - target: {fileID: 3308375293241488577, guid: 8d81fc8e04513124b9439b1d0cfe6c1a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 64b79d66c210f7941868a28d02b34854, type: 2}
 --- !u!1001 &69356640
 PrefabInstance:
@@ -2104,6 +2104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: e16a9e310806b3b49b91b2042516e6f5, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 40
   maxFOV: 90
   startingZoom: 70
@@ -2112,7 +2113,6 @@ MonoBehaviour:
   panTo: {x: 160, y: -120, z: -180}
   panSpeed: 0.05
   panPauseTimer: 1.4
-  doStatic: 0
   errorMessage: 
 --- !u!1 &159047027
 GameObject:
@@ -3331,7 +3331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 98c37c73cb1e8404e8668acc311b43fd, type: 2}
 --- !u!1 &307166816
 GameObject:
@@ -3476,8 +3476,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 3c9e36e194128434b98be03fab99d539, type: 2}
+--- !u!1 &319528839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 319528840}
+  - component: {fileID: 319528841}
+  m_Layer: 0
+  m_Name: Left Door
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &319528840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319528839}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9078126, z: -0, w: 0.41937616}
+  m_LocalPosition: {x: -5.911, y: 0, z: -9.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507615856}
+  m_LocalEulerAnglesHint: {x: 0, y: 130.41, z: 0}
+--- !u!114 &319528841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319528839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5285a43d47621624e8cc71819c71f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pose: 3
 --- !u!1001 &327748109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3923,7 +3968,6 @@ GameObject:
   - component: {fileID: 373454008}
   - component: {fileID: 373454007}
   - component: {fileID: 373454006}
-  - component: {fileID: 373454009}
   m_Layer: 5
   m_Name: Lure Button
   m_TagString: Untagged
@@ -4033,23 +4077,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373454004}
   m_CullTransparentMesh: 1
---- !u!114 &373454009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373454004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c58fdc7cab46f194d9ab80bdfb32346b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  component: {fileID: 11400000, guid: a4673e36863c5bb408ed8041af6d20b7, type: 2}
-  playButton: {fileID: 373454006}
-  responceLabel: {fileID: 1239642976}
-  springtrapTarget: {fileID: 0}
-  cameraHandler: {fileID: 1496690105}
 --- !u!1 &375070619
 GameObject:
   m_ObjectHideFlags: 0
@@ -4319,7 +4346,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 810248254}
   m_Father: {fileID: 971463948}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &378717677
@@ -5412,6 +5440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 97763fc0006ad5c40b36d9fd50b1a1b8, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 30
   maxFOV: 60
   startingZoom: 40
@@ -5420,7 +5449,6 @@ MonoBehaviour:
   panTo: {x: 20, y: -130, z: 0}
   panSpeed: 0.075
   panPauseTimer: 0.4
-  doStatic: 0
   errorMessage: 
 --- !u!4 &473451849 stripped
 Transform:
@@ -5477,6 +5505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 1aeaa8420ed8e8241a5232ad87d6ef4c, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 30
   maxFOV: 45
   startingZoom: 40
@@ -5485,7 +5514,6 @@ MonoBehaviour:
   panTo: {x: 0, y: 0, z: 0}
   panSpeed: 0.1
   panPauseTimer: 0.1
-  doStatic: 0
   errorMessage: 
 --- !u!1 &482694505
 GameObject:
@@ -18306,6 +18334,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -359.985, z: 0}
+--- !u!1 &508070421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508070422}
+  - component: {fileID: 508070423}
+  m_Layer: 0
+  m_Name: Hidden
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508070422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508070421}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9078126, z: -0, w: 0.41937616}
+  m_LocalPosition: {x: -24.22, y: 0, z: -9.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507615856}
+  m_LocalEulerAnglesHint: {x: 0, y: 130.41, z: 0}
+--- !u!114 &508070423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508070421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5285a43d47621624e8cc71819c71f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pose: 3
 --- !u!1001 &513724885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18665,6 +18738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 89cfb82317a26ea419d01450c3e3b80a, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 60
   maxFOV: 70
   startingZoom: 65
@@ -18673,7 +18747,6 @@ MonoBehaviour:
   panTo: {x: 160, y: 70, z: -180}
   panSpeed: 0.05
   panPauseTimer: 1.5
-  doStatic: 0
   errorMessage: 
 --- !u!1001 &551447378
 PrefabInstance:
@@ -19426,6 +19499,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5043812658107322889, guid: b12a4990a31e30140b5231524f341eac, type: 3}
   m_PrefabInstance: {fileID: 575211999}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &584669995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584669996}
+  - component: {fileID: 584669997}
+  m_Layer: 0
+  m_Name: Motion Sensor Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584669996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584669995}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074341807}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &584669997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584669995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a355b49cd232f4887143bd3b445a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  component: {fileID: 11400000, guid: 102820c70cc9ffa4fb71a4e03b514b4c, type: 2}
+  springtrap: {fileID: 1552631396}
+  defaultText: {fileID: 1516434170}
+  warningTitle: {fileID: 1333770326}
+  warningLabel: {fileID: 1714651991}
+  sensorActive: 0
 --- !u!1001 &593278627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19562,7 +19685,6 @@ GameObject:
   - component: {fileID: 597948804}
   - component: {fileID: 597948803}
   - component: {fileID: 597948802}
-  - component: {fileID: 597948805}
   m_Layer: 5
   m_Name: Shock Button
   m_TagString: Untagged
@@ -19672,22 +19794,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597948799}
   m_CullTransparentMesh: 1
---- !u!114 &597948805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597948799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cfcee7ebb28baa40939b7c93ab642ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playButton: {fileID: 597948802}
-  responceLabel: {fileID: 396032208}
-  springtrapTarget: {fileID: 0}
-  cameraHandler: {fileID: 1496690105}
 --- !u!1 &598473250
 GameObject:
   m_ObjectHideFlags: 0
@@ -19697,7 +19803,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 598473251}
-  - component: {fileID: 598473252}
   m_Layer: 5
   m_Name: Motion Sensors Label
   m_TagString: Untagged
@@ -19728,23 +19833,6 @@ RectTransform:
   m_AnchoredPosition: {x: 633, y: 322.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &598473252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598473250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a355b49cd232f4887143bd3b445a3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  component: {fileID: 11400000, guid: 102820c70cc9ffa4fb71a4e03b514b4c, type: 2}
-  defaultText: {fileID: 1516434170}
-  warningTitle: {fileID: 1333770326}
-  warningLabel: {fileID: 1714651991}
-  sensorActive: 0
 --- !u!114 &602345062 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2882417609007850334, guid: 3c84c154f5e93234ab25559a8d9ff52b, type: 3}
@@ -19915,6 +20003,7 @@ Transform:
   - {fileID: 1366492905}
   - {fileID: 1301921606}
   - {fileID: 53427393}
+  - {fileID: 1507615856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &616532811
@@ -22682,6 +22771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 98c37c73cb1e8404e8668acc311b43fd, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 50
   maxFOV: 90
   startingZoom: 75
@@ -22690,7 +22780,6 @@ MonoBehaviour:
   panTo: {x: 0, y: 0, z: 0}
   panSpeed: 0.1
   panPauseTimer: 0.1
-  doStatic: 0
   errorMessage: 
 --- !u!1 &795143331
 GameObject:
@@ -22742,6 +22831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: bd35c28d7def8ea408cf157fae5ef1a9, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 65
   maxFOV: 65
   startingZoom: 65
@@ -22750,7 +22840,6 @@ MonoBehaviour:
   panTo: {x: 0, y: 0, z: 0}
   panSpeed: 0.1
   panPauseTimer: 0.1
-  doStatic: 0
   errorMessage: 
 --- !u!1 &802721005
 GameObject:
@@ -22839,6 +22928,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802721005}
   m_Mesh: {fileID: 6060687775289755917, guid: ad02257d7cafad84e89020f13e570f63, type: 3}
+--- !u!1 &810248253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810248254}
+  - component: {fileID: 810248255}
+  m_Layer: 0
+  m_Name: Lure Button Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &810248254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810248253}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 378717676}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &810248255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810248253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58fdc7cab46f194d9ab80bdfb32346b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  component: {fileID: 11400000, guid: a4673e36863c5bb408ed8041af6d20b7, type: 2}
+  playButton: {fileID: 373454006}
+  responceLabel: {fileID: 1239642976}
+  springtrapTarget: {fileID: 1552631396}
+  cameraHandler: {fileID: 1496690105}
 --- !u!4 &818114392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2560834382809441072, guid: 6a6c4193eaa09da4da31755bce1758d0, type: 3}
@@ -25207,6 +25345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 3c9e36e194128434b98be03fab99d539, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 35
   maxFOV: 60
   startingZoom: 40
@@ -25215,7 +25354,6 @@ MonoBehaviour:
   panTo: {x: 150, y: -40, z: -180}
   panSpeed: 0.1
   panPauseTimer: 0.3
-  doStatic: 0
   errorMessage: 
 --- !u!4 &948549393 stripped
 Transform:
@@ -25773,6 +25911,7 @@ Transform:
   - {fileID: 378717676}
   - {fileID: 2074341807}
   - {fileID: 1866641105}
+  - {fileID: 2009397587}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &972761640
@@ -26017,7 +26156,7 @@ Transform:
   m_GameObject: {fileID: 1040498914}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99995077, z: -0, w: 0.0099232895}
-  m_LocalPosition: {x: -0.18, y: 0, z: -2.92}
+  m_LocalPosition: {x: -0.601, y: 0, z: -0.244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26222,7 +26361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 1aeaa8420ed8e8241a5232ad87d6ef4c, type: 2}
 --- !u!4 &1057549951 stripped
 Transform:
@@ -26311,7 +26450,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079759860}
   m_LocalRotation: {x: 0.10352807, y: -0.80422276, z: 0.26223528, w: 0.52320206}
-  m_LocalPosition: {x: 0, y: 0, z: -16.06}
+  m_LocalPosition: {x: 0, y: 0, z: -18.7}
   m_LocalScale: {x: 0.22410727, y: 0.33830902, z: 0.5934101}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26336,15 +26475,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 64b79d66c210f7941868a28d02b34854, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 50
   maxFOV: 75
   startingZoom: 65
   doPan: 1
-  panFrom: {x: 150, y: -332, z: -180}
-  panTo: {x: 150, y: -290, z: -180}
-  panSpeed: 0.25
-  panPauseTimer: 0.2
-  doStatic: 0
+  panFrom: {x: 150, y: -300, z: -180}
+  panTo: {x: 150, y: -350, z: -180}
+  panSpeed: 0.2
+  panPauseTimer: 0.5
   errorMessage: 
 --- !u!4 &1088520909 stripped
 Transform:
@@ -26362,6 +26501,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1106759621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106759622}
+  - component: {fileID: 1106759623}
+  m_Layer: 0
+  m_Name: Right Door Hidden
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1106759622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106759621}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9861049, z: -0, w: -0.16612397}
+  m_LocalPosition: {x: 5.782, y: 0, z: -6.774}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507615856}
+  m_LocalEulerAnglesHint: {x: 0, y: 199.125, z: 0}
+--- !u!114 &1106759623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106759621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5285a43d47621624e8cc71819c71f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pose: 2
 --- !u!1 &1107559600
 GameObject:
   m_ObjectHideFlags: 0
@@ -27809,6 +27993,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7c36da2f317f7f48b6a35c57b8397a7, type: 3}
+--- !u!1 &1266073890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1266073891}
+  - component: {fileID: 1266073892}
+  m_Layer: 0
+  m_Name: Right Door
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1266073891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266073890}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9648199, z: -0, w: -0.26291183}
+  m_LocalPosition: {x: 5.983, y: 0, z: -9.49}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507615856}
+  m_LocalEulerAnglesHint: {x: 0, y: 210.486, z: 0}
+--- !u!114 &1266073892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266073890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5285a43d47621624e8cc71819c71f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pose: 3
 --- !u!1 &1275004494
 GameObject:
   m_ObjectHideFlags: 0
@@ -27860,6 +28089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 4433a2b35d0c3a04ab8e5e8a2b0cc493, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 35
   maxFOV: 60
   startingZoom: 45
@@ -27868,7 +28098,6 @@ MonoBehaviour:
   panTo: {x: 25, y: 250, z: 0}
   panSpeed: 0.1
   panPauseTimer: 0.75
-  doStatic: 0
   errorMessage: 
 --- !u!4 &1279630657 stripped
 Transform:
@@ -28233,7 +28462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: e16a9e310806b3b49b91b2042516e6f5, type: 2}
 --- !u!4 &1305432903 stripped
 Transform:
@@ -28956,7 +29185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 97763fc0006ad5c40b36d9fd50b1a1b8, type: 2}
 --- !u!1 &1380514332
 GameObject:
@@ -30623,6 +30852,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504638788}
   m_CullTransparentMesh: 1
+--- !u!1 &1507615855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1507615856}
+  - component: {fileID: 1507615857}
+  m_Layer: 0
+  m_Name: Specifics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1507615856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507615855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1529395983}
+  - {fileID: 319528840}
+  - {fileID: 508070422}
+  - {fileID: 1106759622}
+  - {fileID: 1266073891}
+  m_Father: {fileID: 615757888}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1507615857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507615855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486a0c4d04d5eab4db6980b6126cb172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springtrap: {fileID: 1552631396}
+  hidden: {fileID: 0}
+  leftDoor: {fileID: 319528841}
+  leftDoorHidden: {fileID: 1529395984}
+  rightDoor: {fileID: 1266073892}
+  rightDoorHidden: {fileID: 1106759623}
 --- !u!1 &1516434168
 GameObject:
   m_ObjectHideFlags: 0
@@ -30764,6 +31048,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2327901414695041752, guid: 3e1a61d50aaac3748bfa8d8cb55387ad, type: 3}
   m_PrefabInstance: {fileID: 1809244151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1529395982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529395983}
+  - component: {fileID: 1529395984}
+  m_Layer: 0
+  m_Name: Left Door Hidden
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1529395983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529395982}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.25675935, z: -0, w: 0.96647537}
+  m_LocalPosition: {x: -5.91, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507615856}
+  m_LocalEulerAnglesHint: {x: 0, y: 29.756, z: 0}
+--- !u!114 &1529395984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529395982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5285a43d47621624e8cc71819c71f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pose: 0
 --- !u!1 &1530396001
 GameObject:
   m_ObjectHideFlags: 0
@@ -30960,7 +31289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 89cfb82317a26ea419d01450c3e3b80a, type: 2}
 --- !u!1001 &1542451225
 PrefabInstance:
@@ -31430,11 +31759,9 @@ MonoBehaviour:
   Moved:
     m_PersistentCalls:
       m_Calls: []
-  VentMotion:
+  CauseStatic:
     m_PersistentCalls:
       m_Calls: []
-  checkroomdebug: 9
-  lockposdebug: 0
   attackProgress: 0
   rooms:
   - {fileID: 11400000, guid: 130cf573419d2204eb73cc5a7e488035, type: 2}
@@ -31448,8 +31775,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e16a9e310806b3b49b91b2042516e6f5, type: 2}
   - {fileID: 11400000, guid: 64b79d66c210f7941868a28d02b34854, type: 2}
   startRoom: {fileID: 11400000, guid: 130cf573419d2204eb73cc5a7e488035, type: 2}
-  attackLeftRoom: {fileID: 0}
-  attackRightRoom: {fileID: 0}
+  attackLeftRoom: {fileID: 11400000, guid: 64b79d66c210f7941868a28d02b34854, type: 2}
+  attackRightRoom: {fileID: 11400000, guid: e16a9e310806b3b49b91b2042516e6f5, type: 2}
   VentAEnterance: {fileID: 11400000, guid: 89cfb82317a26ea419d01450c3e3b80a, type: 2}
   VentBEnterance: {fileID: 11400000, guid: bd35c28d7def8ea408cf157fae5ef1a9, type: 2}
 --- !u!1001 &1552794389
@@ -32246,7 +32573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5043812658107322889, guid: b12a4990a31e30140b5231524f341eac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.856
+      value: 12.052
       objectReference: {fileID: 0}
     - target: {fileID: 5043812658107322889, guid: b12a4990a31e30140b5231524f341eac, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33728,7 +34055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: bd35c28d7def8ea408cf157fae5ef1a9, type: 2}
 --- !u!1001 &1749978224
 PrefabInstance:
@@ -34512,7 +34839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 130cf573419d2204eb73cc5a7e488035, type: 2}
 --- !u!1 &1835182053
 GameObject:
@@ -35914,7 +36241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e62a3480d3bb74e9d65521c4e67108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springtrap: {fileID: 1552631395}
+  springtrap: {fileID: 1552631396}
   room: {fileID: 11400000, guid: 4433a2b35d0c3a04ab8e5e8a2b0cc493, type: 2}
 --- !u!1001 &1913270481
 PrefabInstance:
@@ -36868,6 +37195,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1227799688704389017, guid: 90532f9f3049f624e9cf0aa73908f3f7, type: 3}
   m_PrefabInstance: {fileID: 1994395185}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2009397586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009397587}
+  - component: {fileID: 2009397588}
+  m_Layer: 0
+  m_Name: Controlled Shock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009397587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009397586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 971463948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2009397588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009397586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfcee7ebb28baa40939b7c93ab642ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playButton: {fileID: 597948802}
+  responceLabel: {fileID: 396032208}
+  springtrapTarget: {fileID: 1552631396}
 --- !u!4 &2010501189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2888562663572979079, guid: 86215b88bbc74fa48a414619e33172ec, type: 3}
@@ -37211,7 +37585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3453552318187849552, guid: 6b44606d7e9c4b9488d41a0b0292dc1c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.241
+      value: 8.999
       objectReference: {fileID: 0}
     - target: {fileID: 3453552318187849552, guid: 6b44606d7e9c4b9488d41a0b0292dc1c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37219,7 +37593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3453552318187849552, guid: 6b44606d7e9c4b9488d41a0b0292dc1c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.1
+      value: 5.457
       objectReference: {fileID: 0}
     - target: {fileID: 3453552318187849552, guid: 6b44606d7e9c4b9488d41a0b0292dc1c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -37707,7 +38081,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 584669996}
   m_Father: {fileID: 971463948}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2074341808
@@ -37981,6 +38356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronicComponent: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
   roomNode: {fileID: 11400000, guid: 130cf573419d2204eb73cc5a7e488035, type: 2}
+  springtrap: {fileID: 1552631396}
   minFOV: 50
   maxFOV: 75
   startingZoom: 65
@@ -37989,7 +38365,6 @@ MonoBehaviour:
   panTo: {x: 0, y: 0, z: 0}
   panSpeed: 0.1
   panPauseTimer: 0.1
-  doStatic: 0
   errorMessage: 
 --- !u!224 &2101373519
 RectTransform:

@@ -9,7 +9,6 @@ public class ControlledShock : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private TMPro.TMP_Text responceLabel;
     [SerializeField] private SpringtrapAI springtrapTarget;
-    [SerializeField] private CameraHandler cameraHandler;
 
     private int chargesRemaining = 5;
     private float chargeDelay = 0;
@@ -56,11 +55,16 @@ public class ControlledShock : MonoBehaviour
         if (chargeDelay > 0) {
             chargeDelay -= Time.deltaTime;
 
+            if (chargeDelay <= chargeDelayMax / 1.2f)
+            {
+                responceLabel.text = "Recharging...";
+                responceLabel.color = chargesRemaining > 2 ? Color.gray : Color.red;
+            }
+
             if (chargeDelay <= 0)
             {
                 responceLabel.text = responceTexts[chargesRemaining];
                 responceLabel.color = chargesRemaining > 2 ? Color.gray : Color.red;
-
             }
         }
     }

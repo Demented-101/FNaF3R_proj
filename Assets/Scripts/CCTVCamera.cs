@@ -5,6 +5,7 @@ public class CCTVCamera : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent electronicComponent;
     [SerializeField] public RoomNode roomNode;
+    [SerializeField] private SpringtrapAI springtrap;
 
     [SerializeField] private float minFOV = 50;
     [SerializeField] private float maxFOV = 75;
@@ -21,13 +22,15 @@ public class CCTVCamera : MonoBehaviour
     private float panDelta;
     private float panTarget;
 
-    public bool doStatic;
     public string errorMessage;
+    private bool errorStatic;
+    private float STStaticTime;
 
     private void Start()
     {
         electronicComponent.statusChanged += UpdateStatus;
         currentZoom = Mathf.InverseLerp(minFOV, maxFOV, startingZoom);
+        springtrap.CauseStatic.AddListener(StartSTStatic);
     }
 
     private void Update()
@@ -37,6 +40,8 @@ public class CCTVCamera : MonoBehaviour
             float zoomAmount = Input.mouseScrollDelta.y * zoomSpeed;
             currentZoom = Mathf.Clamp(currentZoom + zoomAmount, 0f, 1f);
         }
+
+        if (STStaticTime >= 0f) { STStaticTime -= Time.deltaTime; }
 
         if (doPan) handlePan();
     }
@@ -65,25 +70,25 @@ public class CCTVCamera : MonoBehaviour
         switch (electronicComponent.status)
         {
             case ElectronicComponent.ComponentStatus.OK:
-                doStatic = false;
+                errorStatic = false;
                 errorMessage = "";
                 break;
             case ElectronicComponent.ComponentStatus.Warning:
                 if (Random.Range(0, 100) > 70)
                 {
-                    doStatic = true;
+                    errorStatic = true;
                     errorMessage = "DISCONNECTED";
                 }
                 break;
             case ElectronicComponent.ComponentStatus.Error:
                 if (Random.Range(0, 100) > 20)
                 {
-                    doStatic = true;
+                    errorStatic = true;
                     errorMessage = "DISCONNECTED";
                 }
                 break;
             case ElectronicComponent.ComponentStatus.Resetting:
-                doStatic = true;
+                errorStatic = true;
                 errorMessage = "Reconnecting.";
                 break;
         }
@@ -92,5 +97,25 @@ public class CCTVCamera : MonoBehaviour
     public float GetFOV()
     {
         return Mathf.Lerp(minFOV, maxFOV, currentZoom);
+    }
+
+    public void StartSTStatic(RoomNode affectedRoom)
+    {
+        if (roomNode != affectedRoom) { return; }
+
+        STStaticTime = Random.Range(0.2f, 0.4f);
+        if (electronicComponent.status == ElectronicComponent.ComponentStatus.Warning) { STStaticTime *= 2.5f; }
+
+        if (!errorStatic)
+        {
+            errorMessage = "It's me.";
+        }
+    }
+
+    public bool GetDoStatic()
+    {
+        if (errorStatic || STStaticTime > 0) { return true; }
+
+        return false;
     }
 }

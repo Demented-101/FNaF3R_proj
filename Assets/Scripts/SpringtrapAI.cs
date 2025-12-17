@@ -4,10 +4,7 @@ using UnityEngine.Events;
 public class SpringtrapAI : MonoBehaviour
 {
     public UnityEvent Moved;
-    public UnityEvent VentMotion;
-
-    public int checkroomdebug;
-    public bool lockposdebug;
+    public UnityEvent<RoomNode> CauseStatic;
 
     public RoomNode currentRoom { get; private set; }
     public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking}
@@ -35,9 +32,7 @@ public class SpringtrapAI : MonoBehaviour
 
         foreach(RoomNode node in rooms) { node.targetWeight = 0; }
 
-        // REMOVE ME!!!!
-        modeTime = 100000000f;
-        ChangeAttackMode(AttackMode.Direct);
+        Moved.Invoke();
     }
 
     private void Update()
@@ -65,12 +60,12 @@ public class SpringtrapAI : MonoBehaviour
     {
         if (attackMode == AttackMode.Attacking)
         {
-            ChangeAttackMode(AttackMode.Disoriented);
             attackProgress = 0;
             modeTime = Random.Range(15f, 20f);
-
-            Move();
         }
+
+        ChangeAttackMode(AttackMode.Disoriented);
+        Move();
     }
 
     private void ChangeAttackMode(AttackMode newAttack)
@@ -102,6 +97,7 @@ public class SpringtrapAI : MonoBehaviour
                 break;
 
             case AttackMode.Attacking:
+                Moved.Invoke();
                 Debug.Log("Starting attack");
                 break;
         }
@@ -109,8 +105,6 @@ public class SpringtrapAI : MonoBehaviour
 
     private void Move()
     {
-        if (lockposdebug) { return; }
-
         // successfull started attack
         if (currentRoom == poi)
         {
@@ -120,25 +114,34 @@ public class SpringtrapAI : MonoBehaviour
         switch (attackMode)
         {
             case AttackMode.Direct: case AttackMode.Indirect:
+                CauseStatic.Invoke(currentRoom);
                 currentRoom = GetNextRoom();
-                moveTime = 3;// Random.Range(10f, 15f);
+
+                CauseStatic.Invoke(currentRoom);
+                moveTime = Random.Range(10f, 15f);
                 break;
 
             case AttackMode.Rage:
+                CauseStatic.Invoke(currentRoom);
                 currentRoom = GetNextRoom();
+
+                CauseStatic.Invoke(currentRoom);
                 moveTime = Random.Range(5f, 15f);
                 break;
 
             case AttackMode.Disoriented:
+                CauseStatic.Invoke(currentRoom);
                 currentRoom = rooms[Random.Range(0, currentRoom.connections.Length)]; // move to random room
+
+                CauseStatic.Invoke(currentRoom);
                 moveTime = Random.Range(5f, 20f);
                 break;
 
             case AttackMode.Attacking:
+                CauseStatic.Invoke(currentRoom);
                 attackProgress++;
-                moveTime = Random.Range(2f, 10f);
+                moveTime = Random.Range(6f, 10f);
 
-                if(attackDirection == AttackDirection.VentA || attackDirection == AttackDirection.VentB) { VentMotion.Invoke(); }
                 if (attackProgress == 3)
                 {
                     Debug.Log("PLAYER KILLED");
@@ -150,9 +153,9 @@ public class SpringtrapAI : MonoBehaviour
                 Moved.Invoke();
                 return;
         }
-        currentRoom = rooms[checkroomdebug];
+
         Moved.Invoke();
-        Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
+        //Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
     }
 
     private RoomNode GetNextRoom()

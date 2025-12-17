@@ -110,7 +110,7 @@ public class CameraHandler : MonoBehaviour
     // update camera static
     private void UpdateStatic()
     {
-        staticLayer.SetActive(CCTVComp.doStatic);
+        staticLayer.SetActive(CCTVComp.GetDoStatic());
         camErrorText.text = CCTVComp.errorMessage;
     }
 
