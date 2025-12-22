@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -9,6 +10,9 @@ using static UnityEngine.GraphicsBuffer;
 public class CameraHandler : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent EComponent;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioResource[] flipSfx;
+    [SerializeField] private AudioSource cameraAmbientSource;
     [SerializeField] private GameObject inactiveCamAnchor;
     [SerializeField] private GameObject[] camAnchors = new GameObject[10];
     [SerializeField] private GameObject staticLayer;
@@ -44,12 +48,16 @@ public class CameraHandler : MonoBehaviour
         if (camActive) // if using CCTV camera
         {
             UpdateStatic();
+            if (UnityEngine.Random.Range(0,100) < 1) { cameraAmbientSource.time = 0.2f; }
             EComponent.damageComponent.Invoke(Time.deltaTime * 0.333f);
         }
 
         if (Input.GetKeyDown("space"))
         {
             SetCamerasActive(!camActive); // toggle camera open
+
+            audioSource.resource = flipSfx[UnityEngine.Random.Range(0, flipSfx.Length)];
+            audioSource.Play();
         }
     }
 
@@ -57,10 +65,16 @@ public class CameraHandler : MonoBehaviour
     public void SetCamerasActive(bool active)
     {
         camActive = active;
-        if (active) { MoveCamera(currentCam - 1); if (CCTVComp != null) CCTVComp.roomNode.isWatched = true; }
-        else { ReturnToDefault(); if (CCTVComp != null) CCTVComp.roomNode.isWatched = false; }
-        camVolume.enabled = active;
+        if (active) 
+        { 
+            MoveCamera(currentCam - 1);
+        }
+        else 
+        { 
+            ReturnToDefault();
+        }
 
+        camVolume.enabled = active;
         camHUD.SetActive(active);
         camComponent.fieldOfView = defaultFOV;
     }
@@ -70,7 +84,6 @@ public class CameraHandler : MonoBehaviour
     {
         if (cam < 1 || cam > 10) return; // cam doesn't exist
         if (officeCamPositioner != null) officeCamPositioner.enabled = false;
-
 
         currentCam = cam;
         onCamChanged?.Invoke(cam);

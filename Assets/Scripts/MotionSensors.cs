@@ -5,6 +5,7 @@ public class MotionSensors : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent component;
     [SerializeField] private SpringtrapAI springtrap;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private TMP_Text defaultText;
     [SerializeField] private TMP_Text warningTitle;
     [SerializeField] private TMP_Text warningLabel;
@@ -46,6 +47,7 @@ public class MotionSensors : MonoBehaviour
 
                     warningTitle.text = "";
                     warningLabel.text = "";
+                    audioSource.Pause();
                 }
                 else
                 {
@@ -53,6 +55,8 @@ public class MotionSensors : MonoBehaviour
 
                     warningTitle.text = "ALERT";
                     warningLabel.text = "Motion Sensor Triggered.";
+
+                    if (!audioSource.isPlaying) audioSource.Play();
                 }
                 break;
 
@@ -63,6 +67,7 @@ public class MotionSensors : MonoBehaviour
 
                     warningTitle.text = "";
                     warningLabel.text = "Connection low";
+                    audioSource.Pause();
                 }
                 else
                 {
@@ -70,6 +75,8 @@ public class MotionSensors : MonoBehaviour
 
                     warningTitle.text = "ALERT";
                     warningLabel.text = "Motion Sensor Triggered.";
+
+                    if (!audioSource.isPlaying) audioSource.Play();
                 }
                 break;
             
@@ -78,6 +85,8 @@ public class MotionSensors : MonoBehaviour
 
                 warningTitle.text = "ALERT";
                 warningLabel.text = "Motion Sensor Lost Connection.";
+
+                audioSource.Pause();
                 break;
             
             case ElectronicComponent.ComponentStatus.Resetting:
@@ -85,6 +94,8 @@ public class MotionSensors : MonoBehaviour
 
                 warningTitle.text = "Resetting";
                 warningLabel.text = "Please Wait.";
+
+                audioSource.Pause();
                 break;
         }
 

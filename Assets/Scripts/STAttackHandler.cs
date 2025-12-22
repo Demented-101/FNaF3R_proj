@@ -19,6 +19,8 @@ public class STAttackHandler : MonoBehaviour
 
     public void MoveST()
     {
+        if (springtrap.GetComponent<SpringtrapAI>().attackProgress < 1) return;
+
         switch (springtrap.GetComponent<SpringtrapAI>().attackDirection) 
         {
             case SpringtrapAI.AttackDirection.NotAttacking:

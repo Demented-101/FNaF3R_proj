@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class SpringtrapAI : MonoBehaviour
 {
     public UnityEvent Moved;
     public UnityEvent<RoomNode> CauseStatic;
+    public UnityEvent Jumpscaring;
 
     public RoomNode currentRoom { get; private set; }
-    public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking}
+    public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking }
     public enum AttackDirection { NotAttacking, LeftDoor, RightDoor, VentA, VentB }
     public AttackMode attackMode { get; private set; } = AttackMode.Direct;
     public AttackDirection attackDirection { get; private set; } = AttackDirection.NotAttacking;
@@ -17,6 +19,7 @@ public class SpringtrapAI : MonoBehaviour
     private float modeTime = 80f;
     private RoomNode poi;
 
+    [SerializeField] private Animator animator;
     [SerializeField] private RoomNode[] rooms;
     [SerializeField] private RoomNode startRoom;
     [SerializeField] private RoomNode attackLeftRoom;
@@ -24,19 +27,29 @@ public class SpringtrapAI : MonoBehaviour
     [SerializeField] private RoomNode VentAEnterance;
     [SerializeField] private RoomNode VentBEnterance;
 
+    private bool jumpscaring;
+
     private void Start()
     {
         currentRoom = startRoom;
         modeTime = Random.Range(60f, 100f);
         ChangeAttackMode(Random.Range(0, 2) == 0 ? AttackMode.Direct : AttackMode.Indirect);
 
-        foreach(RoomNode node in rooms) { node.targetWeight = 0; }
+        foreach (RoomNode node in rooms) { node.targetWeight = 0; }
 
         Moved.Invoke();
     }
 
     private void Update()
     {
+        if (jumpscaring)
+        {
+            transform.position = Camera.allCameras[0].transform.position + (Camera.allCameras[0].transform.forward * 0.2f);
+            transform.LookAt(Camera.allCameras[0].transform.position);
+
+            return;
+        }
+
         moveTime -= Time.deltaTime * (attackMode == AttackMode.Rage ? 2 : 1);
         modeTime -= Time.deltaTime * Random.Range(0.9f, 1.1f);
 
@@ -44,11 +57,12 @@ public class SpringtrapAI : MonoBehaviour
         for (int i = 0; i < rooms.Length; i++)
         {
             if (rooms[i].targetWeight >= 0) rooms[i].targetWeight -= Time.deltaTime;
+            if (rooms[i] == currentRoom) rooms[i].targetWeight = 0;
         }
 
         if (modeTime < 0) // change attack mode
         {
-            modeTime = Random.Range(60f,100f);
+            modeTime = Random.Range(60f, 100f);
             ChangeAttackMode(Random.Range(0, 2) == 0 ? AttackMode.Direct : AttackMode.Indirect);
             Debug.Log("Mode changed to: " + attackMode.ToString());
         }
@@ -58,6 +72,8 @@ public class SpringtrapAI : MonoBehaviour
 
     public void ControlledShock()
     {
+        if (jumpscaring) return;
+
         if (attackMode == AttackMode.Attacking)
         {
             attackProgress = 0;
@@ -105,8 +121,11 @@ public class SpringtrapAI : MonoBehaviour
 
     private void Move()
     {
+        RoomNode nextRoom = GetNextRoom();
+        RoomNode target = GetTargetRoom();
+
         // successfull started attack
-        if (currentRoom == poi)
+        if (currentRoom == poi && target.targetWeight < 5)
         {
             ChangeAttackMode(AttackMode.Attacking);
         }
@@ -115,7 +134,7 @@ public class SpringtrapAI : MonoBehaviour
         {
             case AttackMode.Direct: case AttackMode.Indirect:
                 CauseStatic.Invoke(currentRoom);
-                currentRoom = GetNextRoom();
+                currentRoom = nextRoom;
 
                 CauseStatic.Invoke(currentRoom);
                 moveTime = Random.Range(10f, 15f);
@@ -123,7 +142,7 @@ public class SpringtrapAI : MonoBehaviour
 
             case AttackMode.Rage:
                 CauseStatic.Invoke(currentRoom);
-                currentRoom = GetNextRoom();
+                currentRoom = nextRoom;
 
                 CauseStatic.Invoke(currentRoom);
                 moveTime = Random.Range(5f, 15f);
@@ -144,6 +163,7 @@ public class SpringtrapAI : MonoBehaviour
 
                 if (attackProgress == 3)
                 {
+                    Jumpscare();
                     Debug.Log("PLAYER KILLED");
                     attackProgress = 0;
                     return;
@@ -155,7 +175,7 @@ public class SpringtrapAI : MonoBehaviour
         }
 
         Moved.Invoke();
-        //Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
+        Debug.Log("Moved! current room: " + currentRoom.roomName + "   current mode: " + attackMode + "   current POI is: " + poi.roomName + "   Time till next move: " + moveTime);
     }
 
     private RoomNode GetNextRoom()
@@ -205,5 +225,12 @@ public class SpringtrapAI : MonoBehaviour
 
         if (highestWeight <= 0 || target == null) target = poi;
         return target;
+    }
+
+    private void Jumpscare()
+    {
+        jumpscaring = true;
+        animator.SetTrigger("jumpscare");
+        Jumpscaring.Invoke();
     }
 }
