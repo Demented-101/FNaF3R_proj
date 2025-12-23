@@ -40,27 +40,28 @@ public class AudioLure : MonoBehaviour
     {
         if(playTime > 0) { return; }
 
-        component.damageComponent.Invoke(15);
+        component.damageComponent.Invoke(40);
         bool hasPlayed;
 
         if (component.status == ElectronicComponent.ComponentStatus.OK)
         {
             hasPlayed = true;
-            playTime = 3.5f;
+            playTime = 5f;
             responceLabel.text = "Playing...";
             responceLabel.color = Color.gray;
         }
         else if (component.status == ElectronicComponent.ComponentStatus.Warning && Random.Range(0,100) < 70)
         {
             hasPlayed = true;
-            playTime = 5f;
+            playTime = 10f;
             responceLabel.text = "Playing...";
             responceLabel.color = Color.gray;
         }
         else
         {
             hasPlayed = false;
-            playTime = 5f;
+            component.Damage();
+            playTime = 3f;
             responceLabel.text = "ERROR";
             responceLabel.color = Color.red;
         }

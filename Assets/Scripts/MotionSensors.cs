@@ -57,6 +57,7 @@ public class MotionSensors : MonoBehaviour
                     warningLabel.text = "Motion Sensor Triggered.";
 
                     if (!audioSource.isPlaying) audioSource.Play();
+                    component.damageComponent.Invoke(Time.deltaTime * 2f);
                 }
                 break;
 
@@ -77,6 +78,7 @@ public class MotionSensors : MonoBehaviour
                     warningLabel.text = "Motion Sensor Triggered.";
 
                     if (!audioSource.isPlaying) audioSource.Play();
+                    component.damageComponent.Invoke(Time.deltaTime * 5f);
                 }
                 break;
             

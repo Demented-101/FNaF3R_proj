@@ -23,7 +23,7 @@ public class STAttackHandler : MonoBehaviour
 
         switch (springtrap.GetComponent<SpringtrapAI>().attackDirection) 
         {
-            case SpringtrapAI.AttackDirection.NotAttacking:
+            case SpringtrapAI.AttackDirection.Disoriented:
                 return;
 
             case SpringtrapAI.AttackDirection.LeftDoor:

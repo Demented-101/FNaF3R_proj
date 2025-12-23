@@ -6,6 +6,7 @@ public class FootstepPlayer : MonoBehaviour
     [SerializeField] private SpringtrapAI springtrap;
     [SerializeField] private AudioClip[] sounds;
     private AudioSource audioSource;
+    [SerializeField] private bool isVentSFX;
 
     void Start()
     {
@@ -15,7 +16,21 @@ public class FootstepPlayer : MonoBehaviour
 
     private void PlaySound()
     {
-        audioSource.clip = sounds[Random.Range(0, sounds.Length)];
-        audioSource.Play();
+        if (isVentSFX)
+        {
+            if (springtrap.attackProgress != 2) return;
+            if (springtrap.attackDirection != SpringtrapAI.AttackDirection.VentA && springtrap.attackDirection != SpringtrapAI.AttackDirection.VentB) return; 
+
+            audioSource.clip = sounds[Random.Range(0, sounds.Length)];
+            audioSource.Play();
+        }
+        else
+        {
+            if (springtrap.attackProgress > 0) return;
+            audioSource.clip = sounds[Random.Range(0, sounds.Length)];
+            audioSource.Play();
+        }
+
+            
     }
 }

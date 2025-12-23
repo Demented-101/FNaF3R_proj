@@ -9,6 +9,7 @@ public class ControlledShock : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private TMPro.TMP_Text responceLabel;
     [SerializeField] private SpringtrapAI springtrapTarget;
+    [SerializeField] private ElectronicComponent[] affectedComponents;
 
     private int chargesRemaining = 5;
     private float chargeDelay = 0;
@@ -42,6 +43,12 @@ public class ControlledShock : MonoBehaviour
 
             responceLabel.text = "SHOCKING...";
             responceLabel.color = Color.red;
+
+            foreach(ElectronicComponent comp in affectedComponents)
+            {
+                comp.Damage();
+                if (UnityEngine.Random.Range(0,100) > 20) comp.Damage();
+            }
         }
         else
         {

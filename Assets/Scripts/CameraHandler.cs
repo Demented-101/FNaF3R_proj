@@ -129,6 +129,6 @@ public class CameraHandler : MonoBehaviour
 
     public void PingAudioLure()
     {
-        CCTVComp.roomNode.targetWeight = UnityEngine.Random.Range(20, 30);
+        CCTVComp.roomNode.targetWeight = UnityEngine.Random.Range(15, 30);
     }
 }

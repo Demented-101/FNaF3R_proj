@@ -1,10 +1,12 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class EComponentHandler : MonoBehaviour
 {
     [SerializeField] private ElectronicComponent component;
+    [SerializeField] private EComponentHandler[] otherHandlers;
 
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text buttonText;
@@ -12,8 +14,9 @@ public class EComponentHandler : MonoBehaviour
     [SerializeField] private Button powerCycleButton;
 
     public float resetTimer;
-    private const float resetTimerMax = 5;
-    private const float powerCycleTimerMax = 10;
+    public bool isResetting;
+    private const float resetTimerMax = 7f;
+    private const float powerCycleTimerMax = 20;
 
     public float damageTimer;
     [SerializeField] private float damageTimerMax = 75;
@@ -28,7 +31,7 @@ public class EComponentHandler : MonoBehaviour
         resetButton.onClick.AddListener(ResetPressed);
         powerCycleButton.onClick.AddListener(PowerCyclePressed);
 
-        damageTimer = Random.Range(damageTimerMin, damageTimerMax) + 10;
+        damageTimer = UnityEngine.Random.Range(damageTimerMin, damageTimerMax) + 10;
         component.GameStart();
         UpdateStatus();
     }
@@ -52,17 +55,34 @@ public class EComponentHandler : MonoBehaviour
             if (damageTimer < 0) 
             { 
                 component.Damage(); 
-                damageTimer = Random.Range(damageTimerMin, damageTimerMax) * 0.75f; 
+                damageTimer = UnityEngine.Random.Range(damageTimerMin, damageTimerMax) * 0.75f; 
             }
         }
     }
 
-    private void ResetPressed() { component.StartReset(); resetTimer = resetTimerMax; }
-    private void PowerCyclePressed() { component.StartReset(); resetTimer = powerCycleTimerMax; }
+    private void ResetPressed() 
+    {
+        foreach(EComponentHandler otherHandler in otherHandlers)
+        {
+            if (otherHandler == this) continue;
+            if (otherHandler.isResetting) return;
+        }
+
+        isResetting = true;
+        component.StartReset(); 
+        resetTimer = resetTimerMax; 
+    }
+    private void PowerCyclePressed() 
+    {
+        isResetting = true;
+        component.StartReset(); 
+        resetTimer = powerCycleTimerMax; 
+    }
 
     private void CompletedReset()
     {
         component.EndReset();
-        damageTimer = Random.Range(damageTimerMin, damageTimerMax);
+        isResetting = false;
+        damageTimer = UnityEngine.Random.Range(damageTimerMin, damageTimerMax);
     }
 }

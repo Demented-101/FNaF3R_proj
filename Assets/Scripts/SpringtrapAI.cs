@@ -10,9 +10,9 @@ public class SpringtrapAI : MonoBehaviour
 
     public RoomNode currentRoom { get; private set; }
     public enum AttackMode { Direct, Indirect, Disoriented, Rage, Attacking }
-    public enum AttackDirection { NotAttacking, LeftDoor, RightDoor, VentA, VentB }
+    public enum AttackDirection { Disoriented, LeftDoor, RightDoor, VentA, VentB }
     public AttackMode attackMode { get; private set; } = AttackMode.Direct;
-    public AttackDirection attackDirection { get; private set; } = AttackDirection.NotAttacking;
+    public AttackDirection attackDirection { get; private set; } = AttackDirection.Disoriented;
     public int attackProgress = 0;  // 0 not attacking, 1 stage 1 (hidden), 2 stage 2 (show at door), 3 is success
 
     private float moveTime = 5f;
@@ -104,7 +104,8 @@ public class SpringtrapAI : MonoBehaviour
 
             case AttackMode.Disoriented:
                 poi = startRoom;
-                attackDirection = AttackDirection.NotAttacking;
+                attackDirection = AttackDirection.Disoriented;
+                attackProgress = 0;
                 break;
 
             case AttackMode.Rage:
@@ -215,7 +216,7 @@ public class SpringtrapAI : MonoBehaviour
         {
             if (room == currentRoom) { continue; }
 
-            float trueWeight = room.targetWeight - Mathf.Abs(currentRoom.roomIndex - room.roomIndex);
+            float trueWeight = ( room.targetWeight / 2 ) - Mathf.Abs(currentRoom.roomIndex - room.roomIndex);
             if (trueWeight >= highestWeight)
             {
                 highestWeight = trueWeight;

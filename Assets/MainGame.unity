@@ -13854,11 +13854,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   component: {fileID: 11400000, guid: 35fe55339ef007a40914e9fc65034e62, type: 2}
+  otherHandlers:
+  - {fileID: 354340153}
+  - {fileID: 378717677}
+  - {fileID: 1866641106}
+  - {fileID: 2074341808}
   nameText: {fileID: 792695215}
   buttonText: {fileID: 1206861382}
   resetButton: {fileID: 116843647}
   powerCycleButton: {fileID: 779328133}
   resetTimer: 0
+  isResetting: 0
   damageTimer: 0
   damageTimerMax: 100
   damageTimerMin: 70
@@ -14286,14 +14292,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   component: {fileID: 11400000, guid: a4673e36863c5bb408ed8041af6d20b7, type: 2}
+  otherHandlers:
+  - {fileID: 354340153}
+  - {fileID: 378717677}
+  - {fileID: 1866641106}
+  - {fileID: 2074341808}
   nameText: {fileID: 1804098829}
   buttonText: {fileID: 219475610}
   resetButton: {fileID: 839809744}
   powerCycleButton: {fileID: 779328133}
   resetTimer: 0
+  isResetting: 0
   damageTimer: 0
-  damageTimerMax: 140
-  damageTimerMin: 100
+  damageTimerMax: 100
+  damageTimerMin: 60
 --- !u!1 &379051228
 GameObject:
   m_ObjectHideFlags: 0
@@ -14877,6 +14889,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: be3208fdb1f50b6489582ab64254ad60, type: 3}
   - {fileID: 8300000, guid: 58dcf62fee35955478ff97137a0add55, type: 3}
   - {fileID: 8300000, guid: aac88dfe20417d24a9c37b429495016b, type: 3}
+  isVentSFX: 0
 --- !u!82 &399747760
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28818,6 +28831,154 @@ MonoBehaviour:
   panSpeed: 0.05
   panPauseTimer: 1.5
   errorMessage: 
+--- !u!1 &543786598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543786601}
+  - component: {fileID: 543786600}
+  - component: {fileID: 543786599}
+  m_Layer: 0
+  m_Name: Vent SFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &543786599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543786598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26acf3da49d6ab648ade540b7c0b4155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springtrap: {fileID: 1552631396}
+  sounds:
+  - {fileID: 8300000, guid: 3da2fba962bfd38419d0d97743cb412b, type: 3}
+  - {fileID: 8300000, guid: ec62c53248d9943468501c1fb4f414d0, type: 3}
+  - {fileID: 8300000, guid: 5b1ccb973b266b549b219531736eadcd, type: 3}
+  isVentSFX: 1
+--- !u!82 &543786600
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543786598}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 03ab1061580206e419c1e5f030d60c37, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0
+  MaxDistance: 6.2864146
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.528
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &543786601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543786598}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.344, z: -9.45}
+  m_LocalScale: {x: 83, y: 83, z: 83}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &551447378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75784,14 +75945,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   component: {fileID: 11400000, guid: 6ac8ce273ef35fa4183c66f667c41b81, type: 2}
+  otherHandlers:
+  - {fileID: 354340153}
+  - {fileID: 378717677}
+  - {fileID: 1866641106}
+  - {fileID: 2074341808}
   nameText: {fileID: 602345062}
   buttonText: {fileID: 1099366159}
   resetButton: {fileID: 1984778572}
   powerCycleButton: {fileID: 779328133}
   resetTimer: 0
+  isResetting: 0
   damageTimer: 0
-  damageTimerMax: 75
-  damageTimerMin: 40
+  damageTimerMax: 60
+  damageTimerMin: 35
 --- !u!1 &1869128529
 GameObject:
   m_ObjectHideFlags: 0
@@ -77548,6 +77715,9 @@ MonoBehaviour:
   playButton: {fileID: 597948802}
   responceLabel: {fileID: 396032208}
   springtrapTarget: {fileID: 1552631396}
+  affectedComponents:
+  - {fileID: 11400000, guid: 6ac8ce273ef35fa4183c66f667c41b81, type: 2}
+  - {fileID: 11400000, guid: a4673e36863c5bb408ed8041af6d20b7, type: 2}
 --- !u!4 &2010501189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2888562663572979079, guid: 86215b88bbc74fa48a414619e33172ec, type: 3}
@@ -78411,11 +78581,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   component: {fileID: 11400000, guid: 102820c70cc9ffa4fb71a4e03b514b4c, type: 2}
+  otherHandlers:
+  - {fileID: 354340153}
+  - {fileID: 378717677}
+  - {fileID: 1866641106}
+  - {fileID: 2074341808}
   nameText: {fileID: 1009565292}
   buttonText: {fileID: 997773794}
   resetButton: {fileID: 656609478}
   powerCycleButton: {fileID: 779328133}
   resetTimer: 0
+  isResetting: 0
   damageTimer: 0
   damageTimerMax: 75
   damageTimerMin: 40
@@ -85108,4 +85284,5 @@ SceneRoots:
   - {fileID: 608013803}
   - {fileID: 2043187834}
   - {fileID: 702808036}
+  - {fileID: 543786601}
   - {fileID: 971463948}
