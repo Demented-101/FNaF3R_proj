@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class SpringtrapAI : MonoBehaviour
@@ -233,5 +234,10 @@ public class SpringtrapAI : MonoBehaviour
         jumpscaring = true;
         animator.SetTrigger("jumpscare");
         Jumpscaring.Invoke();
+    }
+
+    public void ReturnToStart()
+    {
+        SceneManager.LoadSceneAsync("Assets/Scenes/Start UI.unity", LoadSceneMode.Single);
     }
 }
