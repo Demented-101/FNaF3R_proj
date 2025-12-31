@@ -1,7 +1,5 @@
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
+
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Animator))]
 public class OfficeCamPositioner : MonoBehaviour
