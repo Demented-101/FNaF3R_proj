@@ -30712,7 +30712,7 @@ PrefabInstance:
       objectReference: {fileID: 2129637254}
     - target: {fileID: 171283996980690371, guid: 83ade19dffb91f34abde44d1fcdece7d, type: 3}
       propertyPath: m_VersionIndex
-      value: 317
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 171283996980690371, guid: 83ade19dffb91f34abde44d1fcdece7d, type: 3}
       propertyPath: m_Tangents.Array.data[8].x
@@ -30874,6 +30874,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2129637254}
+    - target: {fileID: 8232127610962742557, guid: 83ade19dffb91f34abde44d1fcdece7d, type: 3}
+      propertyPath: UiTimerText
+      value: 
+      objectReference: {fileID: 994649859}
     - target: {fileID: 8670309422999538374, guid: 83ade19dffb91f34abde44d1fcdece7d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -46538,7 +46542,6 @@ GameObject:
   - component: {fileID: 994649857}
   - component: {fileID: 994649860}
   - component: {fileID: 994649859}
-  - component: {fileID: 994649858}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -46565,18 +46568,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -43}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &994649858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994649856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a355fe02aabc94fa27ae99d97f7fab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &994649859
 MonoBehaviour:
   m_ObjectHideFlags: 0
