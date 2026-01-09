@@ -15,8 +15,8 @@ public class EComponentHandler : MonoBehaviour
 
     public float resetTimer;
     public bool isResetting;
-    private const float resetTimerMax = 7f;
-    private const float powerCycleTimerMax = 20;
+    private const float resetTimerMax = 4f;
+    private const float powerCycleTimerMax = 10f;
 
     public float damageTimer;
     [SerializeField] private float damageTimerMax = 75;
