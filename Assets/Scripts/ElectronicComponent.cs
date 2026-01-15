@@ -17,7 +17,6 @@ public class ElectronicComponent : ScriptableObject
     public string GetStatusString() { return statusNames[(int)status]; }
     public Color GetStatusColor() { return statusColors[(int)status]; }
     
-
     public void Damage()
     {
         if (status == ComponentStatus.Resetting) return;

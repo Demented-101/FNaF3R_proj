@@ -8,6 +8,4 @@ public class RoomNode : ScriptableObject
     public RoomNode[] connections;
     public float targetWeight;
     public bool isWatched;
-
-    public enum AttackType { None, VentA, VentB, Window }
 }

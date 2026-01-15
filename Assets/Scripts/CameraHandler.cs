@@ -37,7 +37,7 @@ public class CameraHandler : MonoBehaviour
 
         currentCam = startCam;
         CCTVComp = camAnchors[0].GetComponent<CCTVCamera>();
-        SetCamerasActive(false);
+        SetCCTVCamerasActive(false);
     }
     
     private void Update()
@@ -54,7 +54,7 @@ public class CameraHandler : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            SetCamerasActive(!camActive); // toggle camera open
+            SetCCTVCamerasActive(!camActive); // toggle camera open
 
             audioSource.resource = flipSfx[UnityEngine.Random.Range(0, flipSfx.Length)];
             audioSource.Play();
@@ -62,7 +62,7 @@ public class CameraHandler : MonoBehaviour
     }
 
     // space pressed, move to cams on active, or default in office on false
-    public void SetCamerasActive(bool active)
+    public void SetCCTVCamerasActive(bool active)
     {
         camActive = active;
         if (active) 
@@ -76,7 +76,7 @@ public class CameraHandler : MonoBehaviour
 
         camVolume.enabled = active;
         camHUD.SetActive(active);
-        camComponent.fieldOfView = defaultFOV;
+        camComponent.fieldOfView = camActive ? CCTVComp.GetFOV() : defaultFOV;
     }
 
     // change the current CCTV camera

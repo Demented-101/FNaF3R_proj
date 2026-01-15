@@ -60,7 +60,7 @@ public class EComponentHandler : MonoBehaviour
         }
     }
 
-    private void ResetPressed() 
+    private void ResetPressed() // when individual reset button pressed
     {
         foreach(EComponentHandler otherHandler in otherHandlers)
         {
@@ -72,14 +72,14 @@ public class EComponentHandler : MonoBehaviour
         component.StartReset(); 
         resetTimer = resetTimerMax; 
     }
-    private void PowerCyclePressed() 
+    private void PowerCyclePressed() // when full reset button pressed
     {
         isResetting = true;
         component.StartReset(); 
         resetTimer = powerCycleTimerMax; 
     }
 
-    private void CompletedReset()
+    private void CompletedReset() // once reset is finished
     {
         component.EndReset();
         isResetting = false;
